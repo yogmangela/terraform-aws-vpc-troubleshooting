@@ -8,13 +8,31 @@ variable "aws_account_ids" {
   default = null
 }
 
+# terraform {
+#   required_version = ">= 0.12.20"
+# }
+
+# provider "aws" {
+#   region              = var.aws_region
+#   allowed_account_ids = var.aws_account_ids
+#   profile             = "default"
+#   version             = ">= 2.46.0"
+# }
+
 terraform {
-  required_version = ">= 0.12.20"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 5.0"
+    }
+  }
 }
 
 provider "aws" {
-  region              = var.aws_region
-  allowed_account_ids = var.aws_account_ids
-  profile             = "default"
-  version             = ">= 2.46.0"
+  region = "eu-west-2"
+  default_tags {
+    tags = {
+      Management = "Terraform"
+    }
+  }
 }
